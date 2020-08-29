@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myvue</title>
+    <script src="./myvue.js"></script>
+    <script src="./compile.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 插值绑定 -->
+        <p>{{name}}</p>
+        <p k-text="name"></p>
+        <p>{{age}}</p>
+        <p>{{doubleAge}}</p>
+        <!-- 双向绑定原理 -->
+        <input type="text" k-model="name"/>
+        <!-- 事件处理 -->
+        <button @click="changeName">呵呵</button>
+        <!-- html内容解析 -->
+        <div k-html="html"></div>
+    </div>
+    <script>
+        let myvue1 = new myvue({
+            el:'#app',
+            data:{
+                test:'i am hello',
+                foo:{
+                    bar:' your  hellorbar '
+                },
+                name:'xuez',
+                age:12,
+                html:'<button >这是一个按钮</button>'
+            },
+            created() {
+                console.log('created开始了...');
+                setTimeout(() => {
+                    this.name='我是测试'
+                }, 1500);
+            },
+            methods: {
+                changeName(){
+                    this.name='哈喽，我是开课吧'
+                    this.age=1
+                }
+            },
+
+
+        });
+
+        myvue1.$data.test='i am xuezhao'
+        myvue1.$data.foo.bar='your xuezhaobar'
+
+        // 获取新的test
+        console.log('data中的test',myvue1.$data.test);
+
+    </script>
+</body>
+</html>
